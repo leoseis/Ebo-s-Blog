@@ -24,7 +24,14 @@ def index(request):
     feature4.name = 'Afordable'
     feature4.details = 'very affordable you dont have to braak the bank'
 
-    features = [ feature1, feature2, feature3,feature4,]
+    feature5 = Feature()    #feature1 inherits from picture model 
+    feature5.id = 4
+    feature5.name = 'Execellence'
+    feature5.details = 'be ready to experience excellence'
+
+    
+
+    features = [ feature1, feature2, feature3,feature4, feature5,]
     return render (request, 'index.html',{'features' : features,}) #pass this to the html 
 
 
