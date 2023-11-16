@@ -1,7 +1,6 @@
 from django.db import models
 
-class Feature:
-    id = int
-    name = str
-    detail = str
-    is_true = bool
+
+class Feature(models.Model):
+    name = models.CharField(max_length=100)
+    details = models.CharField(max_length=300)

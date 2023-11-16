@@ -1,46 +1,36 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from  . models import Feature
+from django. contrib. auth.models import User, auth
+from django .contrib import messages
+from  .models import Feature
 
 
 def index(request):
-    feature1 = Feature()    #feature1 inherits from Feature  model 
-    feature1.id = 0
-    feature1.name = 'Fast'
-    feature1.is_true = True
-    feature1.details = 'very fast  network experience'
-
-    feature2 = Feature()     
-    feature2.id = 1
-    feature2.name = 'Relable'
-    feature2.is_true = True
-    feature2.details = 'very reliable network experience'
-
-    feature3 = Feature()     
-    feature3.id = 2
-    feature3.name = 'Easy'
-    feature3.is_true = False
-    feature3.details = 'very easy to utilize or use experience'
-
-    feature4 = Feature()     
-    feature4.id = 3
-    feature4.name = 'Afordable'
-    feature4.is_true = True
-    feature4.details = 'very affordable you dont have to braak the bank'
-
-    feature5 = Feature()     
-    feature5.id = 4
-    feature5.name = 'Execellence'
-    feature5.is_true = False
-    feature5.details = 'be ready to experience excellence'
-
-    
-
-    features = [ feature1, feature2, feature3,feature4, feature5,]
-    return render (request, 'index.html',{'features' : features,}) #pass this to the html 
+    features = Feature.objects.all()
+    return render (request, 'index.html', {'features': features})            #pass this to the html 
 
 
-def counter(request):
-    text = request.POST['text']
-    amount_of_words = len(text.split())
-    return render(request, 'counter.html',{'amount' : amount_of_words} )
+def register(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+
+        if password == password2:
+            if User.objects.filter(email=email).exists():
+                messages.info(request, 'Email already used')
+                return redirect('register')
+            elif User.objects.filter(username=username).exists():
+                messages.info(request, 'Username already exists')
+                return redirect('register')
+            else:
+                user = User.objects.create_user(username=username, email=email, password=password)
+                user.save()
+                messages.success(request, 'Registration successful. Please log in.')
+                return redirect('login')
+        else:
+            messages.info(request, 'Passwords do not match')
+            return redirect('register')
+    else:
+        return render(request, 'register.html')

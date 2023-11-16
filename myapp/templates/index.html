@@ -102,9 +102,9 @@
             <div class="icon"><i class="ri-stack-line"></i></div>
             <h4 class="title"><a href="">{{feature.name}}</a></h4>
             <p class="description">{{feature.details}}</p>
-            {% if feature.is_true == True %}
-            <p>this feature is true </p>
-            {% endif %}
+            {% if feature.name == 'fast' %}
+          <p>our services are fast as bolt</p>
+          {% endif %}
           </div>
          </div>
         {% endfor %}
