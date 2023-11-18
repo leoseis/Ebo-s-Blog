@@ -27,10 +27,14 @@ def register(request):
             else:
                 user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
-                messages.success(request, 'Registration successful. Please log in.')
+                messages.success(request, 'Registration successful. Please login.')
                 return redirect('login')
         else:
             messages.info(request, 'Passwords do not match')
             return redirect('register')
     else:
         return render(request, 'register.html')
+    
+
+def login(request):
+    return render(request, 'login.html')
