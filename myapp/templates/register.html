@@ -11,7 +11,7 @@
 <form method="POST" action="register">
     {% csrf_token %}
     <p> username: </p>
-    <input type="text" name="username">
+    <input type="text" name="username"> , <!--this element gave me an issue cus the 'username did not match in the username in views'-->
     <p> email: </p>
     <input type="email" name="email">
     <p> password: </p>

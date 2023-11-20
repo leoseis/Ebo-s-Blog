@@ -37,4 +37,24 @@ def register(request):
     
 
 def login(request):
-    return render(request, 'login.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:  # if user is valid
+            auth.login(request, user)
+            return redirect('/')
+        else:  # user not valid
+            messages.info(request, 'Credentials Invalid')
+            return redirect('login')
+        
+    else:
+        return render(request, 'login.html')
+
+def counter(request):
+    text = request.POST['text']
+    amount_of_words =  len(text.split())
+    return render (request, 'counter.html',{'amount': amount_of_words})
+
