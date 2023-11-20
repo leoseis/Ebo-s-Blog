@@ -87,8 +87,8 @@
     <div class="container position-relative" data-aos="fade-up" data-aos-delay="100">
       <div class="row justify-content-center">
         <div class="col-xl-7 col-lg-9 text-center">
-          {% if user.is_authenticated %}
-          <h1>welcome {{ user.username }}</h1>
+          {% if user.is_authenticated %}                   <!--if a registerd user loggs in-->
+          <h1>welcome {{ user.username }}</h1>              <!--it welcomes with the user name dynamically -->
           {% else %}
           <h1>One Page Bootstrap Website Template</h1>
           {% endif %}
